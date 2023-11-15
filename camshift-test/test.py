@@ -7,7 +7,8 @@ parser = argparse.ArgumentParser(description='This sample demonstrates the camsh
                                               https://www.bogotobogo.com/python/OpenCV_Python/images/mean_shift_tracking/slow_traffic_small.mp4')
 parser.add_argument('image', type=str, help='path to image file')
 args = parser.parse_args()
-cap = cv.VideoCapture(args.image)
+cap = cv.VideoCapture(args.image) 
+# cap = cv.VideoCapture(0) # uses your camera
 # take first frame of the video
 ret,frame = cap.read()
 # setup initial location of window
