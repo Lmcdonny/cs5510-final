@@ -28,7 +28,7 @@ while True:
                 b = box.xyxy[0]
     if found_person and not temp_found_person:
         # cant find person
-        # beep beep
+        # beep beep sheep sheep
         # stop moving
         # yolo loop til someones found
         found_person = False
