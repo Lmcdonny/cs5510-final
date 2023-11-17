@@ -33,7 +33,6 @@ while True:
         # yolo loop til someones found
         found_person = False
         print("Lost Person")
-        pass
     elif not found_person and temp_found_person:
         # beeeep found a new target
         found_person = True
