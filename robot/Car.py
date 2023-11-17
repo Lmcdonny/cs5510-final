@@ -60,18 +60,6 @@ class Car:
 if __name__ == '__main__':
     car = Car()
     
-    car.set_servo(1, 90)
-    time.sleep(0.5)
-
-    car.set_servo(2, 90)
-    time.sleep(0.5)
-
-    car.set_servo(1, 180)
-    time.sleep(0.5)
-
-    car.set_servo(2, 180)
-    time.sleep(0.5)
-
-    car.set_servo(1, 90)
-    time.sleep(0.5)
-    car.set_servo(2, 90)
+    car.control_car(10, 10)
+    time.sleep(2)
+    car.stop()
