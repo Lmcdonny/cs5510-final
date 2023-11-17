@@ -1,0 +1,8 @@
+'''
+
+'''
+IDLE = 0
+GET_TO_CIRCLE = 1
+ALIGN_TO_CIRCLE = 2
+FOLLOW_CIRCLE = 3
+DEBUG = 4
