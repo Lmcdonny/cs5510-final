@@ -1,56 +1,26 @@
-from ultralytics import YOLO
-import cv2
+from robot.Follow_Bot import Follow_Bot
+from Controller import Controller
+from sensors.Ultrasonic import Ultrasonic
+from sensors.Camera import Camera
+from Yolo import Yolo
 
-model = YOLO('yolov8n.pt')
-cap = cv2.VideoCapture(0)
-cap.set(3, 640)
-cap.set(4, 480)
+def main():
 
-found_person = False
+    # Robot
+    robot = Follow_Bot(ROBOT_DIMS[0], 2)
 
-width  = cap.get(cv2.CAP_PROP_FRAME_WIDTH)   # float `width`
-height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)  # float `height`
+    # Ultrasonic
+    u_sens = Ultrasonic()
 
-print(width, ", ", height)
+    # Camera
+    camera = Camera()
+    
+    # YOLO
+    yolo_sens = Yolo()
 
-while True:
-    _, img = cap.read()
-    temp_found_person = False
+    # Controller
+    controller = Controller(camera, yolo_sens, u_sens, robot)
+    controller.run()
 
-    results = model.predict(img)
-    for r in results:
-        boxes = r.boxes
-        for box in boxes:
-            c = box.cls
-            if model.names[int(c)] == "person":
-                if not temp_found_person:
-                    temp_found_person = True
-                b = box.xyxy[0]
-    if found_person and not temp_found_person:
-        # cant find person
-        # beep beep sheep sheep
-        # stop moving
-        # yolo loop til someones found
-        found_person = False
-        print("Lost Person")
-        pass
-    elif not found_person and temp_found_person:
-        # beeeep found a new target
-        found_person = True
-        print("Found Person")
-
-    # if we have a bounding box
-    #   see where bounding box is compared to screen center
-    #   if bb is left
-    #       turn left
-    #   elif bb is right
-    #       turn right
-    # ultrasonic test for distance
-    # if > 6 ft
-    #   move forward
-           
-    if cv2.waitKey(1) & 0xFF == ord(' '):
-        break
-
-cap.release()
-cv2.destroyAllWindows()
+if __name__ == '__main__':
+    main()
