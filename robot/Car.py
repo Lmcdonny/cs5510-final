@@ -60,6 +60,6 @@ class Car:
 if __name__ == '__main__':
     car = Car()
     
-    car.control_car(10, 10)
+    car.control_car(100, 100)
     time.sleep(2)
     car.stop()
