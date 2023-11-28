@@ -35,23 +35,19 @@ class Yolo:
                         temp_found_person = True
                     b = box.xyxy[0]
                     break
-        self.bounding_box = b
         self.target_found = temp_found_person
+        return b
 
 
     def camshift(self):
         frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
-        self.predict(frame) # predict can take an ndarray
-        if self.bounding_box == None:
+        b = self.predict(frame) # predict can take an ndarray
+        if b == None:
             print("YOLO could not find a person")
             return 0
         # set up bounding box
-        x1, y1 = int(self.bounding_box[0]), int(self.bounding_box[1])
-        x2, y2 = int(self.bounding_box[2]), int(self.bounding_box[3])
-        # x1 = int(x1 * self.IMAGE_SIZE[0])
-        # y1 = int(y1 * self.IMAGE_SIZE[1])
-        # x2 = int(x2 * self.IMAGE_SIZE[0])
-        # y2 = int(y2 * self.IMAGE_SIZE[1])
+        x1, y1 = int(b[0]), int(b[1])
+        x2, y2 = int(b[2]), int(b[3])
         w = abs(x1 - x2)
         h = abs(y1 - y2)
         print(x1, ", ", y1, ", ", x2,", ", y2, ", ", w, ", ", h)
@@ -74,7 +70,9 @@ class Yolo:
             ret, track_window = cv.CamShift(dst, track_window, term_crit)
             pts = cv.boxPoints(ret) 
             pts = np.int0(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
-            print(pts)
+            self.bounding_box = pts
+            img2 = cv.polylines(frame,[pts],True, 255,2)
+            cv.imshow('img2',img2)
             sleep(.1)
             end = time()
             runtime = end - start
