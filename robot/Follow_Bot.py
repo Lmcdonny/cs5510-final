@@ -23,33 +23,34 @@ class Follow_Bot(Skidsteer_Robot):
         if (bbDims == None):
             car.stop()
         
-        bbCenterY = ((abs(bbDims[0][1] - bbDims[3][1]) + bbDims[0][1]) + (abs(bbDims[1][1] - bbDims[2][1]) + bbDims[1][1])) / 2
-        bbCenterX = ((abs(bbDims[0][0] - bbDims[3][0]) + bbDims[0][0]) + (abs(bbDims[1][0] - bbDims[2][0]) + bbDims[1][0])) / 2
-        bbCenter = [bbCenterX, bbCenterY]
-        print("bbCenter: ", bbCenter)
-        vidSize = [640, 480]
-        print("vidSize: ", vidSize)
-        center = [vidSize[0] / 2, vidSize[1] / 2]
-        print("center: ", center)
-
-        minDist = 200
-
-        if bbCenter[0] < center[0]:
-            #turn left
-            car.control_car(250, 0)
-            print("Turniing left")
-        elif bbCenter[0] > center[0]:
-            #turn right
-            car.control_car(0, 250)
-            print("Turning right")
-        elif bbCenter[0] == center[0] and distance > minDist:
-            #continue straight
-            car.control_car(250, 250)
-            print("Going straight")
-
         else:
-            car.stop()
-            print("Stop")
+            bbCenterY = ((abs(bbDims[0][1] - bbDims[3][1]) + bbDims[0][1]) + (abs(bbDims[1][1] - bbDims[2][1]) + bbDims[1][1])) / 2
+            bbCenterX = ((abs(bbDims[0][0] - bbDims[3][0]) + bbDims[0][0]) + (abs(bbDims[1][0] - bbDims[2][0]) + bbDims[1][0])) / 2
+            bbCenter = [bbCenterX, bbCenterY]
+            print("bbCenter: ", bbCenter)
+            vidSize = [640, 480]
+            print("vidSize: ", vidSize)
+            center = [vidSize[0] / 2, vidSize[1] / 2]
+            print("center: ", center)
+
+            minDist = 200
+
+            if bbCenter[0] < center[0]:
+                #turn left
+                car.control_car(250, 0)
+                print("Turniing left")
+            elif bbCenter[0] > center[0]:
+                #turn right
+                car.control_car(0, 250)
+                print("Turning right")
+            elif bbCenter[0] == center[0] and distance > minDist:
+                #continue straight
+                car.control_car(250, 250)
+                print("Going straight")
+
+            else:
+                car.stop()
+                print("Stop")
 
     def set_l(self, power):
         if self.mode == 'sim':
