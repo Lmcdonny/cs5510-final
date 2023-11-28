@@ -65,7 +65,7 @@ class Yolo:
         term_crit = ( cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 1 )
 
         runtime = 0 # in seconds
-        start = time
+        start = time()
         while runtime < 5:
             frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
             hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
@@ -76,7 +76,7 @@ class Yolo:
             pts = np.int0(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
             print(pts)
             sleep(.1)
-            end = time
+            end = time()
             runtime = end - start
 
 
