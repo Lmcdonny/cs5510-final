@@ -3,6 +3,8 @@ import cv2 as cv
 from picamera2 import Picamera2
 import numpy as np
 from time import sleep, time
+import _thread
+
 
 class Yolo:
     target_found = False
@@ -35,6 +37,8 @@ class Yolo:
                         temp_found_person = True
                     b = box.xyxy[0]
                     break
+        if not temp_found_person:
+            self.bounding_box = None
         self.target_found = temp_found_person
         return b
 
@@ -50,7 +54,6 @@ class Yolo:
         x2, y2 = int(b[2]), int(b[3])
         w = abs(x1 - x2)
         h = abs(y1 - y2)
-        print(x1, ", ", y1, ", ", x2,", ", y2, ", ", w, ", ", h)
         track_window = (x1, y1, w, h)
         roi = frame[y1:y1+h, x1:x1+w]
         hsv_roi =  cv.cvtColor(roi, cv.COLOR_BGR2HSV)
@@ -62,7 +65,7 @@ class Yolo:
 
         runtime = 0 # in seconds
         start = time()
-        while runtime < 5:
+        while runtime < 50:
             frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
             hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
             dst = cv.calcBackProject([hsv],[0],roi_hist,[0,180],1)
@@ -76,9 +79,15 @@ class Yolo:
             sleep(.1)
             end = time()
             runtime = end - start
+        self.bounding_box = None
 
 
 if __name__ == "__main__":
     yolo = Yolo()
-    yolo.camshift()
+    _thread.start_new_thread(yolo.camshift())
+    while(True):
+        print(yolo.bounding_box)
+        if yolo.bounding_box == None:
+            print("No box")
+            break
     
