@@ -54,6 +54,7 @@ class Yolo:
         y2 = int(y2 * self.IMAGE_SIZE[1])
         w = abs(x1 - x2)
         h = abs(y1 - y2)
+        print(x1, ", ", y1, ", ", x2,", ", y2, ", ", w, ", ", h)
         track_window = (x1, y1, w, h)
         roi = frame[y1:y1+h, x1:x1+w]
         hsv_roi =  cv.cvtColor(roi, cv.COLOR_BGR2HSV)
