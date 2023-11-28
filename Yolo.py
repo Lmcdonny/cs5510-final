@@ -87,7 +87,5 @@ if __name__ == "__main__":
     _thread.start_new_thread(yolo.camshift())
     while(True):
         print(yolo.bounding_box)
-        if yolo.bounding_box == None:
-            print("No box")
-            break
+
     
