@@ -3,7 +3,7 @@ import cv2 as cv
 from picamera2 import Picamera2
 import numpy as np
 from time import sleep, time
-import _thread
+from threading import Thread
 
 
 class Yolo:
@@ -84,7 +84,9 @@ class Yolo:
 
 if __name__ == "__main__":
     yolo = Yolo()
-    _thread.start_new_thread(yolo.camshift())
+    t = Thread(target=yolo.camshift(), args=[])
+    t.daemon = True
+    t.run()
     while(True):
         print(yolo.bounding_box)
 
