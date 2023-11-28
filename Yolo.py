@@ -42,6 +42,7 @@ class Yolo:
     def camshift(self):
         frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
         self.predict(frame) # predict can take an ndarray
+        print(self.bounding_box)
         if self.bounding_box == None:
             print("YOLO could not find a person")
             return 0
