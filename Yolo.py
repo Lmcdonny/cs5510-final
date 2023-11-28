@@ -46,12 +46,12 @@ class Yolo:
             print("YOLO could not find a person")
             return 0
         # set up bounding box
-        x1, y1 = self.bounding_box[0], self.bounding_box[1]
-        x2, y2 = self.bounding_box[2], self.bounding_box[3]
-        x1 = int(x1 * self.IMAGE_SIZE[0])
-        y1 = int(y1 * self.IMAGE_SIZE[1])
-        x2 = int(x2 * self.IMAGE_SIZE[0])
-        y2 = int(y2 * self.IMAGE_SIZE[1])
+        x1, y1 = int(self.bounding_box[0]), int(self.bounding_box[1])
+        x2, y2 = int(self.bounding_box[2]), int(self.bounding_box[3])
+        # x1 = int(x1 * self.IMAGE_SIZE[0])
+        # y1 = int(y1 * self.IMAGE_SIZE[1])
+        # x2 = int(x2 * self.IMAGE_SIZE[0])
+        # y2 = int(y2 * self.IMAGE_SIZE[1])
         w = abs(x1 - x2)
         h = abs(y1 - y2)
         print(x1, ", ", y1, ", ", x2,", ", y2, ", ", w, ", ", h)
