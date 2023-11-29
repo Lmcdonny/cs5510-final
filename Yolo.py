@@ -84,7 +84,7 @@ class Yolo:
 
 if __name__ == "__main__":
     yolo = Yolo()
-    t = Thread(target=yolo.camshift(), args=[])
+    t = Thread(target=yolo.camshift, args=[])
     t.start()
     while(True):
         if not yolo.bounding_box is None:
