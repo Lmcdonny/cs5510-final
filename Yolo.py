@@ -85,9 +85,7 @@ class Yolo:
 if __name__ == "__main__":
     yolo = Yolo()
     t = Thread(target=yolo.camshift(), args=[])
-    t.daemon = True
-    t.run()
+    t.start()
     while(True):
-        print(yolo.bounding_box)
-
-    
+        if not yolo.bounding_box is None:
+            print(yolo.bounding_box)
