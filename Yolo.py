@@ -52,7 +52,6 @@ class Yolo:
         while self.yolo_box is None:
             print("YOLO could not find a person")
             sleep(1)
-        print("Target Found")
         # set up bounding box
         b = self.yolo_box
         x1, y1 = int(b[0]), int(b[1])
@@ -101,10 +100,10 @@ if __name__ == "__main__":
     runtime = 0 # in seconds
     start = time()
     while(True):
-        if yolo.bounding_box is not None:
+        if not yolo.bounding_box is None:
             print(yolo.bounding_box)
-        end = time()
-        runtime = end - start
+        current = time()
+        runtime = current - start
         if runtime > 5:
             print("Running YOLO")
             yolo.predict(np.ascontiguousarray(yolo.cam.capture_array()[:, :, 0:3]))
