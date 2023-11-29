@@ -9,6 +9,7 @@ from threading import Thread
 class Yolo:
     running = False
     target_found = False
+    yolo_box = None
     bounding_box = None
     cam = Picamera2()
     IMAGE_SIZE = [640, 480] # width, height
@@ -40,21 +41,20 @@ class Yolo:
                     break
         if not temp_found_person:
             self.bounding_box = None
+            self.yolo_box = None
         self.target_found = temp_found_person
-        return b
+        self.yolo_box = b
 
 
     def camshift(self):
         self.running = True
-        self.bounding_box = None
         frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
-        print("Running YOLO")
-        b = self.predict(frame) # predict can take an ndarray
-        if b == None:
+        while self.yolo_box is None:
             print("YOLO could not find a person")
-            return 0
+            sleep(1)
         print("Target Found")
         # set up bounding box
+        b = self.yolo_box
         x1, y1 = int(b[0]), int(b[1])
         x2, y2 = int(b[2]), int(b[3])
         w = abs(x1 - x2)
@@ -69,6 +69,20 @@ class Yolo:
         term_crit = ( cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 1 )
 
         while self.running:
+            if self.yolo_box != b:
+                b = self.yolo_box
+                x1, y1 = int(b[0]), int(b[1])
+                x2, y2 = int(b[2]), int(b[3])
+                w = abs(x1 - x2)
+                h = abs(y1 - y2)
+                track_window = (x1, y1, w, h)
+                roi = frame[y1:y1+h, x1:x1+w]
+                hsv_roi =  cv.cvtColor(roi, cv.COLOR_BGR2HSV)
+                mask = cv.inRange(hsv_roi, np.array((0., 60.,32.)), np.array((180.,255.,255.)))
+                roi_hist = cv.calcHist([hsv_roi],[0],mask,[180],[0,180])
+                cv.normalize(roi_hist,roi_hist,0,255,cv.NORM_MINMAX)
+                # Setup the termination criteria, either 10 iteration or move by at least 1 pt
+                term_crit = ( cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 1 )
             frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
             hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
             dst = cv.calcBackProject([hsv],[0],roi_hist,[0,180],1)
@@ -77,6 +91,7 @@ class Yolo:
             pts = cv.boxPoints(ret) 
             pts = np.int0(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
             self.bounding_box = pts
+            sleep(.2)
 
 
 if __name__ == "__main__":
@@ -86,11 +101,12 @@ if __name__ == "__main__":
     runtime = 0 # in seconds
     start = time()
     while(True):
-        if not yolo.bounding_box is None:
+        if yolo.bounding_box is not None:
             print(yolo.bounding_box)
         end = time()
         runtime = end - start
         if runtime > 5:
-            t.join()
-            t.start()
-            start = time()
+            print("Running YOLO")
+            yolo.predict(np.ascontiguousarray(yolo.cam.capture_array()[:, :, 0:3]))
+            print("YOLO'd")
+            start = time() # reset timer
