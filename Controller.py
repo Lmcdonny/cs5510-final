@@ -2,6 +2,7 @@
 
 '''
 from cv2 import waitKey
+from threading import Thread
 
 class Controller:
     def __init__(self, camera, yolo, ultrasonic, robot):
@@ -14,12 +15,14 @@ class Controller:
     def run(self):
         # Main loop
         found_person = False
-
+        t = Thread(target=self.yolo.camshift, args=[])
+        t.start()
         while True:
             # Get sensor info
             img = self.camera.read()
-            pos, temp_found_person = self.yolo.predict(img)
-            target_dist = self.ultrasonic.sense(pos) # sense is a placeholder
+            temp_found_person = self.yolo.target_found
+            boundingBoxDims = self.yolo.bounding_box
+            dist = self.ultrasonic.distance() # sense is a placeholder
 
             # Determine state
             
@@ -29,6 +32,7 @@ class Controller:
                 # cant find person
                 # beep beep sheep sheep
                 # stop moving
+                self.robot.operate(None, -1)
                 # yolo loop til someones found
                 found_person = False
                 print("Lost Person")
@@ -39,7 +43,7 @@ class Controller:
                 print("Found Person")
 
             # Invoke robot decision
-            self.robot.operate()
+            self.robot.operate(boundingBoxDims, dist)
 
             # If esc is pressed break
             if waitKey(1) & 0xFF == ord(' '):
