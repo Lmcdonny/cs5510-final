@@ -74,9 +74,6 @@ class Yolo:
             pts = cv.boxPoints(ret) 
             pts = np.int0(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
             self.bounding_box = pts
-            img2 = cv.polylines(frame,[pts],True, 255,2)
-            cv.imshow('img2',img2)
-            sleep(.1)
             end = time()
             runtime = end - start
         self.bounding_box = None
