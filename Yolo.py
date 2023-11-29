@@ -7,6 +7,7 @@ from threading import Thread
 
 
 class Yolo:
+    running = False
     target_found = False
     bounding_box = None
     cam = Picamera2()
@@ -44,11 +45,15 @@ class Yolo:
 
 
     def camshift(self):
+        self.running = True
+        self.bounding_box = None
         frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
+        print("Running YOLO")
         b = self.predict(frame) # predict can take an ndarray
         if b == None:
             print("YOLO could not find a person")
             return 0
+        print("Target Found")
         # set up bounding box
         x1, y1 = int(b[0]), int(b[1])
         x2, y2 = int(b[2]), int(b[3])
@@ -63,9 +68,7 @@ class Yolo:
         # Setup the termination criteria, either 10 iteration or move by at least 1 pt
         term_crit = ( cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 1 )
 
-        runtime = 0 # in seconds
-        start = time()
-        while runtime < 50:
+        while self.running:
             frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
             hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
             dst = cv.calcBackProject([hsv],[0],roi_hist,[0,180],1)
@@ -74,15 +77,20 @@ class Yolo:
             pts = cv.boxPoints(ret) 
             pts = np.int0(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
             self.bounding_box = pts
-            end = time()
-            runtime = end - start
-        self.bounding_box = None
 
 
 if __name__ == "__main__":
     yolo = Yolo()
     t = Thread(target=yolo.camshift, args=[])
     t.start()
+    runtime = 0 # in seconds
+    start = time()
     while(True):
         if not yolo.bounding_box is None:
             print(yolo.bounding_box)
+        end = time()
+        runtime = end - start
+        if runtime > 5:
+            t.join()
+            t.start()
+            start = time()
