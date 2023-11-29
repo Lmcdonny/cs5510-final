@@ -7,7 +7,7 @@ class Buzzer:
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(32, GPIO.OUT)
         self.buzz = GPIO.PWM(32, 440)
-
+        self.curr_freq = 0
         # self.max_freq = 
 
     def start(self):
@@ -16,8 +16,10 @@ class Buzzer:
             while 1:
                 self.buzz.stop()
                 time.sleep(.5)
+                self.buzz.ChangeFrequency(self.curr_freq)
                 self.buzz.start(50)
                 time.sleep(.1)
+                self.curr_freq += 0.1
 
                 # for dc in range(0, 101, 5):
                 #     print('start_1')
