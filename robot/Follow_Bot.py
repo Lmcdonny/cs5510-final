@@ -4,16 +4,17 @@ from Skidsteer_Robot import Skidsteer_Robot
 import utils.objectives as obs
 from Car import Car
 
-car = Car()
-
 class Follow_Bot(Skidsteer_Robot):
-    def __init__(self, startpos, width, hz, mode='sim'):
+    def __init__(self, startpos, width, hz):
         super().__init__(startpos, width, hz)
-
-        self.mode = mode
         self.objective = obs.IDLE
 
-    def operate(self, bbDims, distance):
+        self.car = Car()
+        self.lv = 0
+        self.rv = 0
+        self.v_max = 255
+
+    def operate(self, bbDims, distance, verbose=False):
         #y = 480
         #x = 640
         #bbDims = [[x, y],
@@ -21,44 +22,52 @@ class Follow_Bot(Skidsteer_Robot):
         #          [x, y],
         #          [x, y]]
         if (bbDims == None):
-            car.stop()
+            self.stop()
         
         else:
             bbCenterY = ((abs(bbDims[0][1] - bbDims[3][1]) + bbDims[0][1]) + (abs(bbDims[1][1] - bbDims[2][1]) + bbDims[1][1])) / 2
             bbCenterX = ((abs(bbDims[0][0] - bbDims[3][0]) + bbDims[0][0]) + (abs(bbDims[1][0] - bbDims[2][0]) + bbDims[1][0])) / 2
             bbCenter = [bbCenterX, bbCenterY]
-            print("bbCenter: ", bbCenter)
+            
             vidSize = [640, 480]
-            print("vidSize: ", vidSize)
+            
             center = [vidSize[0] / 2, vidSize[1] / 2]
-            print("center: ", center)
+            
+            if verbose:
+                print("bbCenter: ", bbCenter)
+                print("vidSize: ", vidSize)
+                print("center: ", center)
 
             minDist = 200
 
             if bbCenter[0] < center[0]:
                 #turn left
-                car.control_car(250, 0)
-                print("Turniing left")
+                self.set_v(self.v_max, 0)
+                if verbose:
+                    print("Turniing left")
             elif bbCenter[0] > center[0]:
                 #turn right
-                car.control_car(0, 250)
-                print("Turning right")
+                self.set_v(0, self.v_max)
+                if verbose:
+                    print("Turning right")
             elif bbCenter[0] == center[0] and distance > minDist:
                 #continue straight
-                car.control_car(250, 250)
-                print("Going straight")
+                self.set_v(self.v_max, self.v_max)
+                if verbose:
+                    print("Going straight")
 
             else:
-                car.stop()
-                print("Stop")
+                self.car.stop()
+                if verbose:
+                    print("Stop")
 
-    def set_l(self, power):
-        if self.mode == 'sim':
-            super().set_l(power)
+    def set_v(self, l, r):
+        self.set_l(l)
+        self.set_r(r)
+        self.car.control_car(self.vl, self.vr)
 
-    def set_r(self, power):
-        if self.mode == 'sim':
-            super().set_r(power)
+    def stop(self):
+        self.car.stop()
 
 if __name__ == '__main__':
     bot = Follow_Bot((0,0), 3, 3, mode='real')
