@@ -88,9 +88,9 @@ class Yolo:
             # apply camshift to get the new location
             ret, track_window = cv.CamShift(dst, track_window, term_crit)
             pts = cv.boxPoints(ret) 
-            pts = np.int0(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
+            pts = np.intp(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
             self.bounding_box = pts
-            sleep(.2)
+            sleep(.1)
 
 
 if __name__ == "__main__":
@@ -104,7 +104,7 @@ if __name__ == "__main__":
             print(yolo.bounding_box)
         current = time()
         runtime = current - start
-        if runtime > 5:
+        if runtime > 10:
             print("Running YOLO")
             yolo.predict(np.ascontiguousarray(yolo.cam.capture_array()[:, :, 0:3]))
             print("YOLO'd")
