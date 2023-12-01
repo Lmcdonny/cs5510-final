@@ -3,6 +3,7 @@
 '''
 from cv2 import waitKey
 from threading import Thread
+from robot.utils import objectives as obs
 
 class Controller:
     def __init__(self, camera, yolo, ultrasonic, robot):
@@ -25,20 +26,18 @@ class Controller:
             dist = self.ultrasonic.distance() # sense is a placeholder
 
             # Determine state
-            
-
                 # Toggling
             if found_person and not temp_found_person:
                 # cant find person
-                # beep beep sheep sheep
-                # stop moving
-                self.robot.operate(None, -1)
+                self.robot.set_ob(obs.LOST)
+
                 # yolo loop til someones found
                 found_person = False
                 print("Lost Person")
                 pass
             elif not found_person and temp_found_person:
                 # beeeep found a new target
+                self.robot.set_ob(obs.FOUND)
                 found_person = True
                 print("Found Person")
 

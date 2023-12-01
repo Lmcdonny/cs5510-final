@@ -13,28 +13,25 @@ class Buzzer:
         self.curr_freq = 50.0
         # self.max_freq = 
 
+    def lost(self):
+        self.start()
+        self.buzz.start(50)
+        self.buzz.ChangeFrequency(self.HIGH_FREQ)
+        time.sleep(.2)
+        self.buzz.ChangeFrequency(self.LOW_FREQ)
+        time.sleep(.2)
+        self.stop()
+
+    def found(self):
+        self.start()
+        self.buzz.ChangeFrequency(self.LOW_FREQ)
+        time.sleep(.2)
+        self.buzz.ChangeFrequency(self.HIGH_FREQ)
+        time.sleep(.2)
+        self.stop()
+
     def start(self):
         self.buzz.start(50)
-        try:
-            while 1:
-                self.buzz.ChangeFrequency(self.HIGH_FREQ)
-                time.sleep(.2)
-                self.buzz.ChangeFrequency(self.LOW_FREQ)
-                time.sleep(.2)
-
-                # for dc in range(0, 101, 5):
-                #     print('start_1')
-                #     self.buzz.ChangeDutyCycle(dc)
-                #     time.sleep(0.1)
-                # for dc in range(100, -1, -5):
-                #     self.buzz.ChangeDutyCycle(dc)
-                #     print('start_2')
-                #     time.sleep(0.1)
-
-        except KeyboardInterrupt:
-            pass
-
-        self.stop()
 
     def stop(self):
         self.buzz.stop()
