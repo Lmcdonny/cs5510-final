@@ -51,6 +51,9 @@ class Yolo:
         frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
         while self.yolo_box is None:
             print("YOLO could not find a person")
+            print("Running YOLO")
+            yolo.predict(np.ascontiguousarray(yolo.cam.capture_array()[:, :, 0:3]))
+            print("YOLO'd")
             sleep(1)
         # set up bounding box
         b = self.yolo_box
@@ -68,7 +71,7 @@ class Yolo:
         term_crit = ( cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 1 )
 
         while self.running:
-            if self.yolo_box != b:
+            if b != self.yolo_box:
                 b = self.yolo_box
                 x1, y1 = int(b[0]), int(b[1])
                 x2, y2 = int(b[2]), int(b[3])
