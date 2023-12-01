@@ -51,3 +51,4 @@ class Controller:
 
     def close(self):
         self.camera.close()
+        self.robot.close()
