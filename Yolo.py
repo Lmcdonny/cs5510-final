@@ -53,7 +53,7 @@ class Yolo:
             while self.yolo_box is None:
                 print("Yolo.py: YOLO could not find a person")
                 print("Yolo.py: Running YOLO")
-                self.predict(np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3]))
+                self.predict()
                 print("Yolo.py: YOLO'd")
                 sleep(1)
             # set up bounding box
