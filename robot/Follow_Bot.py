@@ -7,8 +7,8 @@ from robot.Buzzer import Buzzer
 from time import sleep
 
 class Follow_Bot(Skidsteer_Robot):
-    def __init__(self, hz=2):
-        super().__init__((1,1), 1, hz)
+    def __init__(self, w):
+        super().__init__((1,1), w, 2)
         self.objective = obs.LOST
         self.buzz = Buzzer()
 
@@ -61,12 +61,12 @@ class Follow_Bot(Skidsteer_Robot):
                         print("Follow_Bot.py: Going straight")
                 elif bbCenter[0] < center[0]:
                     #turn left
-                    self.set_v(self.v_max, 0)
+                    self.turn_left()
                     if verbose:
                         print("Follow_Bot.py: Turniing left")
                 elif bbCenter[0] > center[0]:
                     #turn right
-                    self.set_v(0, self.v_max)
+                    self.turn_right()
                     if verbose:
                         print("Follow_Bot.py: Turning right")
 
@@ -76,6 +76,14 @@ class Follow_Bot(Skidsteer_Robot):
                         print("Follow_Bot.py: Stop")
         elif self.objective == obs.LOST:
             pass
+
+    def turn_left(self):
+        self.set_v(0, self.v_max)
+        
+
+    def turn_right(self):
+        self.set_v(self.v_max, 0)
+
 
     def set_ob(self, objective):
         '''Handles changing objective. When objective changes, an action happens'''
@@ -100,5 +108,5 @@ class Follow_Bot(Skidsteer_Robot):
         self.buzz.close()
 
 if __name__ == '__main__':
-    bot = Follow_Bot((0,0), 3, 3, mode='real')
+    bot = Follow_Bot(25)
     bot.set_v(0, 0)

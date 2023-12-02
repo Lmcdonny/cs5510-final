@@ -8,9 +8,11 @@ from Yolo import Yolo
 def main():
     # [W, H]
     cam_dims = [640, 480]
+    # Robot dimensions in meters [W, L]
+    robot_dims = [22 / 100, 16 / 100]
 
     # Robot
-    robot = Follow_Bot()
+    robot = Follow_Bot(robot_dims[1])
 
     # Ultrasonic
     u_sens = Ultrasonic()
