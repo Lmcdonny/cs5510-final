@@ -42,8 +42,6 @@ class Yolo:
                         temp_found_person = True
                     b = box.xyxy[0]
                     break
-        if not temp_found_person:
-            self.bounding_box = None
         self.target_found = temp_found_person
         self.yolo_box = b
 
