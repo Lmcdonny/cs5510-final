@@ -46,7 +46,7 @@ class Controller:
             # Invoke robot decision
             self.robot.operate(boundingBoxDims, dist, True)
             runtime = time() - start
-            if runtime > 8:
+            if runtime > 5:
                 self.yolo.predict()
 
             # If esc is pressed break
