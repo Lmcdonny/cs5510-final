@@ -1,13 +1,13 @@
 '''Internal representation of the robot to be used by the controller'''
 
-from Skidsteer_Robot import Skidsteer_Robot
-import utils.objectives as obs
-from Car import Car
-from Buzzer import Buzzer
+from robot.Skidsteer_Robot import Skidsteer_Robot
+import robot.utils.objectives as obs
+from robot.Car import Car
+from robot.Buzzer import Buzzer
 
 class Follow_Bot(Skidsteer_Robot):
-    def __init__(self, startpos, width, hz):
-        super().__init__(startpos, width, hz)
+    def __init__(self, hz=2):
+        super().__init__((1,1), 1, hz)
         self.objective = obs.LOST
         self.buzz = Buzzer()
 

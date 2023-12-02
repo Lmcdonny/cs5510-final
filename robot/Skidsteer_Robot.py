@@ -1,9 +1,9 @@
 '''
 Our implementation of a skidsteer robot
 '''
-from ROBOT import Robot
-from utils.geometry import distance, tangent_angle, compare_angles
-import utils.objectives as obs
+from robot.ROBOT import Robot
+from robot.utils.geometry import distance, tangent_angle, compare_angles
+import robot.utils.objectives as obs
 import numpy as np
 
 class Skidsteer_Robot(Robot):

@@ -2,38 +2,41 @@ import RPi.GPIO as GPIO
 import time
 #from Car import Car
 
-GPIO.setwarnings(False)
+class Ultrasonic:
+    def __init__(self):
 
-EchoPin = 18
-TrigPin = 16
+        GPIO.setwarnings(False)
 
-GPIO.setmode(GPIO.BOARD)
+        self.EchoPin = 18
+        self.TrigPin = 16
 
-GPIO.setup(EchoPin, GPIO.IN)
-GPIO.setup(TrigPin, GPIO.OUT)
+        GPIO.setmode(GPIO.BOARD)
 
-def distance():
-    GPIO.output(TrigPin, GPIO.LOW)
-    time.sleep(0.000002)
-    GPIO.output(TrigPin, GPIO.HIGH)
-    time.sleep(0.000015)
-    GPIO.output(TrigPin, GPIO.LOW)
+        GPIO.setup(self.EchoPin, GPIO.IN)
+        GPIO.setup(self.TrigPin, GPIO.OUT)
 
-    t3 = time.time()
+    def distance(self):
+        GPIO.output(self.TrigPin, GPIO.LOW)
+        time.sleep(0.000002)
+        GPIO.output(self.TrigPin, GPIO.HIGH)
+        time.sleep(0.000015)
+        GPIO.output(self.TrigPin, GPIO.LOW)
 
-    while not GPIO.input(EchoPin):
-        t4 = time.time()
-        if (t4 - t3) > 0.03:
+        t3 = time.time()
+
+        while not GPIO.input(self.EchoPin):
+            t4 = time.time()
+            if (t4 - t3) > 0.03:
+                return -1
+        t1 = time.time()
+        while GPIO.input(self.EchoPin):
+            t5 = time.time()
+        if (t5 - t1) > 0.03:
             return -1
-    t1 = time.time()
-    while GPIO.input(EchoPin):
-        t5 = time.time()
-    if (t5 - t1) > 0.03:
-        return -1
 
-    t2 = time.time()
-    time.sleep(0.01)
-    return ((t2 - t1) * 340 / 2) * 100
+        t2 = time.time()
+        time.sleep(0.01)
+        return ((t2 - t1) * 340 / 2) * 100
 
 """if __name__ == '__main__':
     car = Car()
@@ -58,6 +61,8 @@ def distance():
 
     print(f"Ending: {distance()}")
  #   car.stop()"""
-while True:
-    print(distance())
-    time.sleep(1)
+if __name__ == "__main__":
+    us = Ultrasonic()
+    while True:
+        print(us.distance())
+        time.sleep(1)
