@@ -52,10 +52,10 @@ class Yolo:
         self.running = True
         frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
         while self.yolo_box is None:
-            print("YOLO could not find a person")
-            print("Running YOLO")
+            print("Yolo.py: YOLO could not find a person")
+            print("Yolo.py: Running YOLO")
             self.predict(np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3]))
-            print("YOLO'd")
+            print("Yolo.py: YOLO'd")
             sleep(1)
         # set up bounding box
         b = self.yolo_box

@@ -24,6 +24,7 @@ class Follow_Bot(Skidsteer_Robot):
         self.v_max = 255
 
     def operate(self, bbDims, distance, verbose=False):
+        print(self.objective)
         if self.objective == obs.FOUND:
             #y = 480
             #x = 640
@@ -32,12 +33,14 @@ class Follow_Bot(Skidsteer_Robot):
             #          [x, y],
             #          [x, y]]
             if (bbDims == None):
+                print("Follow_Bot.py: No Bounding box")
                 self.stop()
             
             else:
                 bbCenterY = ((abs(bbDims[0][1] - bbDims[3][1]) + bbDims[0][1]) + (abs(bbDims[1][1] - bbDims[2][1]) + bbDims[1][1])) / 2
                 bbCenterX = ((abs(bbDims[0][0] - bbDims[3][0]) + bbDims[0][0]) + (abs(bbDims[1][0] - bbDims[2][0]) + bbDims[1][0])) / 2
                 bbCenter = [bbCenterX, bbCenterY]
+                print("Follow_Bot.py: Bounding Box center -> ", bbCenter)
                 
                 vidSize = [640, 480]
                 
@@ -60,7 +63,8 @@ class Follow_Bot(Skidsteer_Robot):
                     self.set_v(0, self.v_max)
                     if verbose:
                         print("Turning right")
-                elif bbCenter[0] == center[0] and distance > minDist:
+                elif bbCenter[0] == center[0]:
+                    # and distance > minDist
                     #continue straight
                     self.set_v(self.v_max, self.v_max)
                     if verbose:
