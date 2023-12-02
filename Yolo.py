@@ -47,8 +47,8 @@ class Yolo:
 
 
     def camshift(self):
-        while True:
-            self.running = True
+        self.running = True
+        while self.running:
             frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
             while self.yolo_box is None:
                 print("Yolo.py: YOLO could not find a person")
