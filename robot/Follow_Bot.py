@@ -58,7 +58,6 @@ class Follow_Bot(Skidsteer_Robot):
                     #continue straight
                     self.set_v(self.v_max, self.v_max)
                     if verbose:
-<<<<<<< HEAD
                         print("Follow_Bot.py: Going straight")
                 elif bbCenter[0] < center[0]:
                     #turn left
@@ -68,17 +67,7 @@ class Follow_Bot(Skidsteer_Robot):
                 elif bbCenter[0] > center[0]:
                     #turn right
                     self.turn_right()
-=======
-                        print("Going straight")
-                elif bbCenter[0] > center[0]:
-                    # turn left
-                    self.set_v(self.v_max, 0)
-                    if verbose:
-                        print("Turniing left")
-                elif bbCenter[0] < center[0]:
-                    # turn right
-                    self.set_v(0, self.v_max)
->>>>>>> c310621 (change to yolo timer and turning logic)
+
                     if verbose:
                         print("Follow_Bot.py: Turning right")
 
