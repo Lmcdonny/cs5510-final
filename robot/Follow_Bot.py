@@ -17,7 +17,6 @@ class Follow_Bot(Skidsteer_Robot):
         self.v_max = 255
 
     def operate(self, bbDims, distance, verbose=False):
-        print("I got the the operate function")
         if self.objective == obs.FOUND:
             #y = 480
             #x = 640
@@ -54,7 +53,8 @@ class Follow_Bot(Skidsteer_Robot):
                     self.set_v(0, self.v_max)
                     if verbose:
                         print("Turning right")
-                elif bbCenter[0] == center[0] and distance > minDist:
+                elif bbCenter[0] == center[0]:
+                    # and distance > minDist
                     #continue straight
                     self.set_v(self.v_max, self.v_max)
                     if verbose:
