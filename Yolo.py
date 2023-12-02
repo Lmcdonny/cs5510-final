@@ -47,7 +47,7 @@ class Yolo:
 
 
     def camshift(self):
-        while self.running:
+        while True:
             self.running = True
             frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
             while self.yolo_box is None:
