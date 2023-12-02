@@ -17,6 +17,7 @@ class Follow_Bot(Skidsteer_Robot):
         self.v_max = 255
 
     def operate(self, bbDims, distance, verbose=False):
+        print(self.objective)
         if self.objective == obs.FOUND:
             #y = 480
             #x = 640
