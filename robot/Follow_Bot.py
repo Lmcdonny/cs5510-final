@@ -41,7 +41,7 @@ class Follow_Bot(Skidsteer_Robot):
                     print("vidSize: ", vidSize)
                     print("center: ", center)
 
-                minDist = 200
+                minDist = 100
 
                 if bbCenter[0] < center[0]:
                     #turn left
