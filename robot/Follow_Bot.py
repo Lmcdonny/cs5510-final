@@ -7,7 +7,7 @@ from robot.Buzzer import Buzzer
 
 class Follow_Bot(Skidsteer_Robot):
     def __init__(self, hz=2):
-        super().__init__(None, None, hz)
+        super().__init__((1,1), 1, hz)
         self.objective = obs.LOST
         self.buzz = Buzzer()
 
