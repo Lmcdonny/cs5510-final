@@ -20,13 +20,14 @@ class Yolo:
         self.cam.start()
 
     # In our program, the use of this is just to tell if we found a person and to get that persons bounding box
-    def predict(self, img):
+    def predict(self):
         ''' Takes one iterative step in the YOLO algorithm
         
             -> pos(tuple): position of target, found_target(boolean): whether the target has been observed
         '''
         temp_found_person = False
         b = None
+        img = self.cam.capture_array()[:, :, 0:3]
 
         # Prediction
         results = self.model.predict(img)
@@ -41,7 +42,6 @@ class Yolo:
                     break
         if not temp_found_person:
             self.bounding_box = None
-            self.yolo_box = None
         self.target_found = temp_found_person
         self.yolo_box = b
 
@@ -52,7 +52,7 @@ class Yolo:
         while self.yolo_box is None:
             print("YOLO could not find a person")
             print("Running YOLO")
-            yolo.predict(np.ascontiguousarray(yolo.cam.capture_array()[:, :, 0:3]))
+            self.predict(np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3]))
             print("YOLO'd")
             sleep(1)
         # set up bounding box
@@ -76,7 +76,7 @@ class Yolo:
             dst = cv.calcBackProject([hsv],[0],roi_hist,[0,180],1)
             # apply camshift to get the new location
             ret, track_window = cv.CamShift(dst, track_window, term_crit)
-            pts = cv.boxPoints(ret) 
+            pts = cv.boxPoints(ret)
             pts = np.intp(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
             self.bounding_box = pts
             sleep(.1)

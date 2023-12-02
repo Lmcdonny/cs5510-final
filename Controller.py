@@ -16,11 +16,11 @@ class Controller:
     def run(self):
         # Main loop
         found_person = False
+        self.yolo.predict()
         t = Thread(target=self.yolo.camshift, args=[])
         t.start()
         while True:
             # Get sensor info
-            img = self.camera.read()
             temp_found_person = self.yolo.target_found
             boundingBoxDims = self.yolo.bounding_box
             dist = self.ultrasonic.distance() # sense is a placeholder
