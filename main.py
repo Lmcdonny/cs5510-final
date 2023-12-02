@@ -9,7 +9,7 @@ def main():
 
 
     # Robot
-    robot = Follow_Bot((2,2), 4, 2)
+    robot = Follow_Bot()
 
     # Ultrasonic
     u_sens = Ultrasonic()
