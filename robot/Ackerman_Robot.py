@@ -1,7 +1,7 @@
 '''
 Ackerman steering representation of a robot. Included purely for reference.
 '''
-from ROBOT import Robot
+from robot.ROBOT import Robot
 import math
 from utils.geometry import distance
 import utils.objectives as obs

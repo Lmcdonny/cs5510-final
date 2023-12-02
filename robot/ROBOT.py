@@ -3,8 +3,8 @@ Class for handling robot control and kinematics
 '''
 from abc import abstractmethod
 from abc import ABC
-from utils.geometry import m_to_pixel
-import utils.objectives as obs
+from robot.utils.geometry import m_to_pixel
+import robot.utils.objectives as obs
 from numpy import pi
 
 class Robot(ABC):
