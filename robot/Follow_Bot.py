@@ -82,11 +82,11 @@ class Follow_Bot(Skidsteer_Robot):
             pass
 
     def turn_left(self):
-        self.set_v(0, self.v_max * 0.25)
+        self.set_v(-self.v_max * 0.25, self.v_max * 0.25)
         
 
     def turn_right(self):
-        self.set_v(self.v_max * 0.25, 0)
+        self.set_v(self.v_max * 0.25, -self.v_max * 0.25)
 
 
     def set_ob(self, objective):
