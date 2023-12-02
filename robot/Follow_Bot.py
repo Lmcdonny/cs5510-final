@@ -1,6 +1,6 @@
 '''Internal representation of the robot to be used by the controller'''
 
-from Skidsteer_Robot import Skidsteer_Robot
+from .Skidsteer_Robot import Skidsteer_Robot
 import utils.objectives as obs
 from Car import Car
 from Buzzer import Buzzer
