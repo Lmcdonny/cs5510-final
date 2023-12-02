@@ -1,5 +1,4 @@
 from robot.Follow_Bot import Follow_Bot
-import robot.Skidsteer_Robot
 from Controller import Controller
 from sensors.Ultrasonic import Ultrasonic
 from sensors.Camera import Camera
