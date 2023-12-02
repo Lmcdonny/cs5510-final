@@ -25,7 +25,7 @@ class Follow_Bot(Skidsteer_Robot):
             #          [x, y],
             #          [x, y],
             #          [x, y]]
-            if (bbDims == None):
+            if (bbDims is None):
                 print("Follow_Bot.py: No Bounding box")
                 self.stop()
             
