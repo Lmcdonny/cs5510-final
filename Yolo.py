@@ -75,6 +75,7 @@ class Yolo:
 
             while self.running:
                 if b != self.yolo_box:
+                    print("Yolo.py: Change in Yolo box")
                     break
                 frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
                 hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
