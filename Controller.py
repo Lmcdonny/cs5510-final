@@ -4,6 +4,7 @@
 from cv2 import waitKey
 from threading import Thread
 from robot.utils import objectives as obs
+from time import sleep, time
 
 class Controller:
     def __init__(self, camera, yolo, ultrasonic, robot):
