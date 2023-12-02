@@ -42,5 +42,14 @@ class Buzzer:
 
 if __name__ == '__main__':
     buzz = Buzzer()
-    buzz.start()
-    buzz.close()
+    try:
+        while True:
+            buzz.start()
+            buzz.found()
+            time.sleep(0.5)
+            buzz.lost()
+
+    except:
+        buzz.stop()
+        buzz.close()
+    
