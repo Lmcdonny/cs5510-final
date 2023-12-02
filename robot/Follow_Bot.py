@@ -53,7 +53,13 @@ class Follow_Bot(Skidsteer_Robot):
 
                 minDist = 100
 
-                if bbCenter[0] < center[0]:
+                if center[0] + 60 > bbCenter[0] and bbCenter[0] > center[0] - 60:
+                    # and distance > minDist
+                    #continue straight
+                    self.set_v(self.v_max, self.v_max)
+                    if verbose:
+                        print("Going straight")
+                elif bbCenter[0] < center[0]:
                     #turn left
                     self.set_v(self.v_max, 0)
                     if verbose:
@@ -63,12 +69,6 @@ class Follow_Bot(Skidsteer_Robot):
                     self.set_v(0, self.v_max)
                     if verbose:
                         print("Turning right")
-                elif center[0] + 60 > bbCenter[0]  and bbCenter[0] > center[0] - 60:
-                    # and distance > minDist
-                    #continue straight
-                    self.set_v(self.v_max, self.v_max)
-                    if verbose:
-                        print("Going straight")
 
                 else:
                     self.car.stop()
