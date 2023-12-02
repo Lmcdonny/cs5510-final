@@ -21,7 +21,7 @@ class Follow_Bot(Skidsteer_Robot):
 
         self.lv = 0
         self.rv = 0
-        self.v_max = 255
+        self.v_max = 150
 
     def operate(self, bbDims, distance, verbose=False):
         print(self.objective)
@@ -47,9 +47,9 @@ class Follow_Bot(Skidsteer_Robot):
                 center = [vidSize[0] / 2, vidSize[1] / 2]
                 
                 if verbose:
-                    print("bbCenter: ", bbCenter)
-                    print("vidSize: ", vidSize)
-                    print("center: ", center)
+                    print("Follow_Bot.py: bbCenter: ", bbCenter)
+                    print("Follow_Bot.py: vidSize: ", vidSize)
+                    print("Follow_Bot.py: center: ", center)
 
                 minDist = 100
 
@@ -58,22 +58,22 @@ class Follow_Bot(Skidsteer_Robot):
                     #continue straight
                     self.set_v(self.v_max, self.v_max)
                     if verbose:
-                        print("Going straight")
+                        print("Follow_Bot.py: Going straight")
                 elif bbCenter[0] < center[0]:
                     #turn left
                     self.set_v(self.v_max, 0)
                     if verbose:
-                        print("Turniing left")
+                        print("Follow_Bot.py: Turniing left")
                 elif bbCenter[0] > center[0]:
                     #turn right
                     self.set_v(0, self.v_max)
                     if verbose:
-                        print("Turning right")
+                        print("Follow_Bot.py: Turning right")
 
                 else:
                     self.car.stop()
                     if verbose:
-                        print("Stop")
+                        print("Follow_Bot.py: Stop")
         elif self.objective == obs.LOST:
             pass
 
