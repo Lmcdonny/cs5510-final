@@ -11,11 +11,14 @@ class Yolo:
     target_found = False
     yolo_box = None
     bounding_box = None
-    cam = Picamera2()
-    IMAGE_SIZE = [640, 480] # width, height
 
-    def __init__(self):
-        # YOLO stuff
+    def __init__(self, cam):
+        '''
+        Cam must implement the following methods:
+
+        start(), capture_array(), 
+        '''
+        self.cam = cam
         self.model = YOLO('yolov8n.pt')
         self.cam.start()
 

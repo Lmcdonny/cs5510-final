@@ -5,8 +5,8 @@ from sensors.Camera import Camera
 from Yolo import Yolo
 
 def main():
-    # cam dimensions = [w = 640, h = 480]
-
+    # [W, H]
+    cam_dims = [640, 480]
 
     # Robot
     robot = Follow_Bot((2,2), 4, 2)
@@ -18,9 +18,8 @@ def main():
     camera = Camera()
     
     # YOLO
-    yolo_sens = Yolo()
+    yolo_sens = Yolo(camera)
     # usage: yolo_sens.predict(image)
-
 
     # Controller
     controller = Controller(camera, yolo_sens, u_sens, robot)
