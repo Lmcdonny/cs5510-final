@@ -47,43 +47,43 @@ class Yolo:
 
 
     def camshift(self):
-        while True:
-            self.running = True
-            frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
-            while self.yolo_box is None:
-                print("Yolo.py: YOLO could not find a person")
-                print("Yolo.py: Running YOLO")
-                self.predict(np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3]))
-                print("Yolo.py: YOLO'd")
-                sleep(1)
-            # set up bounding box
-            b = self.yolo_box
-            x1, y1 = int(b[0]), int(b[1])
-            x2, y2 = int(b[2]), int(b[3])
-            w = abs(x1 - x2)
-            h = abs(y1 - y2)
-            track_window = (x1, y1, w, h)
-            roi = frame[y1:y1+h, x1:x1+w]
-            hsv_roi =  cv.cvtColor(roi, cv.COLOR_BGR2HSV)
-            mask = cv.inRange(hsv_roi, np.array((0., 60.,32.)), np.array((180.,255.,255.)))
-            roi_hist = cv.calcHist([hsv_roi],[0],mask,[180],[0,180])
-            cv.normalize(roi_hist,roi_hist,0,255,cv.NORM_MINMAX)
-            # Setup the termination criteria, either 10 iteration or move by at least 1 pt
-            term_crit = ( cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 1 )
+        # while self.running:
+        self.running = True
+        frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
+        while self.yolo_box is None:
+            print("Yolo.py: YOLO could not find a person")
+            print("Yolo.py: Running YOLO")
+            self.predict(np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3]))
+            print("Yolo.py: YOLO'd")
+            sleep(1)
+        # set up bounding box
+        b = self.yolo_box
+        x1, y1 = int(b[0]), int(b[1])
+        x2, y2 = int(b[2]), int(b[3])
+        w = abs(x1 - x2)
+        h = abs(y1 - y2)
+        track_window = (x1, y1, w, h)
+        roi = frame[y1:y1+h, x1:x1+w]
+        hsv_roi =  cv.cvtColor(roi, cv.COLOR_BGR2HSV)
+        mask = cv.inRange(hsv_roi, np.array((0., 60.,32.)), np.array((180.,255.,255.)))
+        roi_hist = cv.calcHist([hsv_roi],[0],mask,[180],[0,180])
+        cv.normalize(roi_hist,roi_hist,0,255,cv.NORM_MINMAX)
+        # Setup the termination criteria, either 10 iteration or move by at least 1 pt
+        term_crit = ( cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 1 )
 
-            while self.running:
-                if b != self.yolo_box:
-                    print("Yolo.py: Change in Yolo box")
-                    break
-                frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
-                hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
-                dst = cv.calcBackProject([hsv],[0],roi_hist,[0,180],1)
-                # apply camshift to get the new location
-                ret, track_window = cv.CamShift(dst, track_window, term_crit)
-                pts = cv.boxPoints(ret)
-                pts = np.intp(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
-                self.bounding_box = pts
-                sleep(.1)
+        while self.running:
+            # if b != self.yolo_box:
+            #     print("Yolo.py: Change in Yolo box")
+            #     break
+            frame = np.ascontiguousarray(self.cam.capture_array()[:, :, 0:3])
+            hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
+            dst = cv.calcBackProject([hsv],[0],roi_hist,[0,180],1)
+            # apply camshift to get the new location
+            ret, track_window = cv.CamShift(dst, track_window, term_crit)
+            pts = cv.boxPoints(ret)
+            pts = np.intp(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
+            self.bounding_box = pts
+            sleep(.1)
 
 
 if __name__ == "__main__":
