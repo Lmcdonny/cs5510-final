@@ -20,6 +20,8 @@ class Controller:
         self.yolo.predict()
         t = Thread(target=self.yolo.camshift, args=[])
         t.start()
+        runtime = 0
+        start = time()
         while True:
             # Get sensor info
             temp_found_person = self.yolo.target_found
@@ -43,6 +45,9 @@ class Controller:
 
             # Invoke robot decision
             self.robot.operate(boundingBoxDims, dist)
+            runtime = time() - start
+            if runtime > 8:
+                self.yolo.predict()
 
             # If esc is pressed break
             if waitKey(1) & 0xFF == ord(' '):
