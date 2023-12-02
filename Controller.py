@@ -30,11 +30,10 @@ class Controller:
             if found_person and not temp_found_person:
                 # cant find person
                 self.robot.set_ob(obs.LOST)
-
-                # yolo loop til someones found
                 found_person = False
                 print("Lost Person")
-                pass
+                # yolo loop til someones found
+                self.yolo.predict()
             elif not found_person and temp_found_person:
                 # beeeep found a new target
                 self.robot.set_ob(obs.FOUND)
