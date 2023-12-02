@@ -15,9 +15,9 @@ class Follow_Bot(Skidsteer_Robot):
         self.car = Car()
         # Init camera servo settings
         self.car.set_servo(1, 90)
-        sleep(0.5)
+        sleep(0.1)
         self.car.set_servo(2, 100)
-        sleep(0.5)
+        sleep(0.1)
 
         self.lv = 0
         self.rv = 0
