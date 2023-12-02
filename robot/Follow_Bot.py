@@ -98,8 +98,8 @@ class Follow_Bot(Skidsteer_Robot):
         self.objective = objective
 
     def set_v(self, l, r):
-        self.set_l(l)
-        self.set_r(r)
+        self.set_l(int(l))
+        self.set_r(int(r))
         self.car.control_car(self.vl, self.vr)
 
     def stop(self):
