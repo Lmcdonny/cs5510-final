@@ -1,6 +1,5 @@
 from ultralytics import YOLO
 import cv2 as cv
-from picamera2 import Picamera2
 import numpy as np
 from time import sleep, time
 from threading import Thread

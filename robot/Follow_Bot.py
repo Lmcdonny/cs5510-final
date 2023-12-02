@@ -4,6 +4,7 @@ from robot.Skidsteer_Robot import Skidsteer_Robot
 import robot.utils.objectives as obs
 from robot.Car import Car
 from robot.Buzzer import Buzzer
+from time import sleep
 
 class Follow_Bot(Skidsteer_Robot):
     def __init__(self, hz=2):
@@ -12,6 +13,12 @@ class Follow_Bot(Skidsteer_Robot):
         self.buzz = Buzzer()
 
         self.car = Car()
+        # Init camera servo settings
+        self.car.set_servo(1, 90)
+        sleep(0.5)
+        self.car.set_servo(2, 100)
+        sleep(0.5)
+
         self.lv = 0
         self.rv = 0
         self.v_max = 255
@@ -78,6 +85,8 @@ class Follow_Bot(Skidsteer_Robot):
                 self.buzz.lost()
             elif objective == obs.FOUND:
                 self.buzz.found()
+
+        self.objective = objective
 
     def set_v(self, l, r):
         self.set_l(l)
