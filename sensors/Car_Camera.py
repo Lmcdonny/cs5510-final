@@ -5,7 +5,11 @@ import cv2
 class Car_Camera:
     cam = Picamera2()
 
-    
+    def start(self):
+        self.cam.start()
+
+    def capture_array(self):
+        return self.cam.capture_array()
 
 if __name__ == '__main__':
     picam2 = Picamera2()

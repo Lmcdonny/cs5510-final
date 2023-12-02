@@ -2,6 +2,7 @@ from robot.Follow_Bot import Follow_Bot
 from Controller import Controller
 from sensors.Ultrasonic import Ultrasonic
 from sensors.Camera import Camera
+from sensors.Car_Camera import Car_Camera
 from Yolo import Yolo
 
 def main():
@@ -15,7 +16,7 @@ def main():
     u_sens = Ultrasonic()
 
     # Camera
-    camera = Camera()
+    camera = Car_Camera()
     
     # YOLO
     yolo_sens = Yolo(camera)
