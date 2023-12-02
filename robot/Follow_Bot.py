@@ -21,7 +21,7 @@ class Follow_Bot(Skidsteer_Robot):
 
         self.lv = 0
         self.rv = 0
-        self.v_max = 50
+        self.v_max = 255
 
     def operate(self, bbDims, distance, verbose=False):
         print(self.objective)
@@ -56,7 +56,7 @@ class Follow_Bot(Skidsteer_Robot):
                 if center[0] + 100 > bbCenter[0] and bbCenter[0] > center[0] - 100:
                     # and distance > minDist
                     #continue straight
-                    self.set_v(self.v_max, self.v_max)
+                    self.set_v(self.v_max * 0.25, self.v_max * 0.25)
                     if verbose:
                         print("Follow_Bot.py: Going straight")
                 elif bbCenter[0] < center[0]:
