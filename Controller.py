@@ -44,7 +44,7 @@ class Controller:
                 print("Controller.py: Found Person")
 
             # Invoke robot decision
-            self.robot.operate(boundingBoxDims, dist)
+            self.robot.operate(boundingBoxDims, dist, True)
             runtime = time() - start
             if runtime > 8:
                 self.yolo.predict()
