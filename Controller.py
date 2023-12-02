@@ -49,8 +49,9 @@ class Controller:
                 # Invoke robot decision
                 self.robot.operate(boundingBoxDims, dist, True)
                 runtime = time() - start
-                if runtime > 2:
+                if runtime > 4:
                     self.yolo.predict()
+                    start = time()
 
                 # If esc is pressed break
                 if waitKey(1) & 0xFF == ord(' '):
