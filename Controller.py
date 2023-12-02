@@ -31,14 +31,14 @@ class Controller:
                 # cant find person
                 self.robot.set_ob(obs.LOST)
                 found_person = False
-                print("Lost Person")
+                print("Controller.py: Lost Person")
                 # yolo loop til someones found
                 self.yolo.predict()
             elif not found_person and temp_found_person:
                 # beeeep found a new target
                 self.robot.set_ob(obs.FOUND)
                 found_person = True
-                print("Found Person")
+                print("Controller.py: Found Person")
 
             # Invoke robot decision
             self.robot.operate(boundingBoxDims, dist)
