@@ -98,13 +98,15 @@ class Yolo:
 
 if __name__ == "__main__":
     yolo = Yolo()
+    yolo.predict(np.ascontiguousarray(yolo.cam.capture_array()[:, :, 0:3]))
+    print("Running YOLO")
     t = Thread(target=yolo.camshift, args=[])
     t.start()
     runtime = 0 # in seconds
     start = time()
     while(True):
-        if not yolo.bounding_box is None:
-            print(yolo.bounding_box)
+        # if not yolo.bounding_box is None:
+        print(yolo.bounding_box)
         current = time()
         runtime = current - start
         if runtime > 10:
@@ -112,3 +114,4 @@ if __name__ == "__main__":
             yolo.predict(np.ascontiguousarray(yolo.cam.capture_array()[:, :, 0:3]))
             print("YOLO'd")
             start = time() # reset timer
+        sleep(.1)
