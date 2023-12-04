@@ -15,28 +15,59 @@ class Buzzer:
 
     def lost(self):
         self.start()
-        self.buzz.start(50)
-        self.buzz.ChangeFrequency(self.HIGH_FREQ)
-        time.sleep(.2)
-        self.buzz.ChangeFrequency(self.LOW_FREQ)
-        time.sleep(.2)
+        self.speak(self.HIGH_FREQ, .2)
+        self.speak(self.LOW_FREQ, .2)
         self.stop()
 
     def found(self):
         self.start()
-        self.buzz.ChangeFrequency(self.LOW_FREQ)
-        time.sleep(.2)
-        self.buzz.ChangeFrequency(self.HIGH_FREQ)
-        time.sleep(.2)
+        self.speak(self.LOW_FREQ, .2)
+        self.speak(self.HIGH_FREQ, .2)
         self.stop()
 
     def start(self):
         self.buzz.start(50)
 
+    def startup(self):
+        self.start()
+        self.speak(self.LOW_FREQ, .1)
+        self.stop()
+        time.sleep(0.1)
+        self.start()
+        self.speak(self.LOW_FREQ, .1)
+        self.stop()
+        self.start()
+        self.speak(self.LOW_FREQ, .1)
+        self.stop()
+        time.sleep(0.05)
+        self.start()
+        self.speak(self.HIGH_FREQ, .3)
+        self.stop()
+
+    def speak(self, freq, sleep, dc=50):
+        self.buzz.start(dc)
+        self.buzz.ChangeFrequency(freq)
+        time.sleep(sleep)
+
     def stop(self):
         self.buzz.stop()
 
     def close(self):
+        self.start()
+        self.speak(self.HIGH_FREQ, .1)
+        self.stop()
+        time.sleep(0.1)
+        self.start()
+        self.speak(self.HIGH_FREQ, .1)
+        self.stop()
+        self.start()
+        self.speak(self.HIGH_FREQ, .1)
+        self.stop()
+        time.sleep(0.05)
+        self.start()
+        self.speak(self.LOW_FREQ, .3)
+        self.stop()
+
         GPIO.cleanup()
 
 
