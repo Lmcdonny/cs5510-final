@@ -33,6 +33,7 @@ class Controller:
                     # Toggling
                 if dist < 50:
                     self.robot.stop()
+                    print(dist)
                     continue
                 if found_person and not temp_found_person:
                     # cant find person
