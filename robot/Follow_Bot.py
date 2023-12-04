@@ -24,20 +24,11 @@ class Follow_Bot(Skidsteer_Robot):
         self.print(f'obj: {self.objective}')
         self.print(f'dist: {distance}')
         if self.objective == obs.FOUND:
-            #y = 480
-            #x = 640
-            #bbDims = [[x, y],
-            #          [x, y],
-            #          [x, y],
-            #          [x, y]]
             if (bbDims is None):
                 self.print("No Bounding box")
                 self.stop()
             
             else:
-                # bbCenterY = ((abs(bbDims[0][1] - bbDims[3][1]) + bbDims[0][1]) + (abs(bbDims[1][1] - bbDims[2][1]) + bbDims[1][1])) / 2
-                # bbCenterX = ((abs(bbDims[0][0] - bbDims[3][0]) + bbDims[0][0]) + (abs(bbDims[1][0] - bbDims[2][0]) + bbDims[1][0])) / 2
-                
                 bbCenterY = (bbDims[0][1] - (abs(bbDims[0][1] - bbDims[1][1]) / 2))
                 bbCenterX = (bbDims[0][0] + (abs(bbDims[0][0] - bbDims[1][0]) / 2))
                 bbCenter = [bbCenterX, bbCenterY]
@@ -54,8 +45,7 @@ class Follow_Bot(Skidsteer_Robot):
 
                 if distance < self.min_dist and distance > 0:
                     self.stop()
-                elif center[0] + 50 > bbCenter[0] and bbCenter[0] > center[0] - 50:
-                    # and distance > minDist
+                elif center[0] + 80 > bbCenter[0] and bbCenter[0] > center[0] - 80:
                     #continue straight
                     self.set_v(self.v_max * 0.25, self.v_max * 0.25)
                     if verbose:
@@ -77,7 +67,7 @@ class Follow_Bot(Skidsteer_Robot):
                     if verbose:
                         self.print("Stop")
         elif self.objective == obs.LOST:
-            pass
+            self.stop()
 
     def turn_left(self):
         self.set_v(-self.v_max * 0.25, self.v_max * 0.25)

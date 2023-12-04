@@ -72,7 +72,7 @@ class Yolo:
             term_crit = ( cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 1 )
 
             while self.running:
-                if b is not self.yolo_box: # restart the function
+                if not self.target_found: # restart the function
                     break
                 frame = np.ascontiguousarray(self.cam.capture_array())
                 hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
