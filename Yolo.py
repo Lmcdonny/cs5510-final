@@ -72,7 +72,7 @@ class Yolo:
             term_crit = ( cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 1 )
 
             while self.running:
-                if b is not self.yolo_box:
+                if b is not self.yolo_box: # restart the function
                     break
                 frame = np.ascontiguousarray(self.cam.capture_array())
                 hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
@@ -82,7 +82,7 @@ class Yolo:
                 pts = cv.boxPoints(ret)
                 pts = np.intp(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
                 self.bounding_box = pts
-                sleep(.1)
+                # sleep(.1)
 
     def print(self, message):
         print("Yolo.py: " + message)

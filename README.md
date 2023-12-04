@@ -23,6 +23,7 @@ To run this program you will need to install on your Yahboom Raspbot:
 * [smbus]
 * [picamera2] (https://github.com/raspberrypi/picamera2)
 * [OpenCV] (https://pypi.org/project/opencv-python/)
+* [Torch]
 
 ## Usage
 1) Place your Raspbot 6 feet away from you
