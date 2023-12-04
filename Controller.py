@@ -1,7 +1,6 @@
 '''
 
 '''
-from cv2 import waitKey
 from threading import Thread
 from robot.utils import objectives as obs
 from time import sleep, time
@@ -55,3 +54,6 @@ class Controller:
         self.robot.stop()
         self.camera.close()
         self.robot.close()
+
+    def print(self, message):
+        print("Controller.py: " + message)

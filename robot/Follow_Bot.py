@@ -24,7 +24,8 @@ class Follow_Bot(Skidsteer_Robot):
         self.v_max = 255
 
     def operate(self, bbDims, distance, verbose=False):
-        print('Follow_Bot.py: self.objective')
+        self.print('obj:' + self.objective)
+        self.print('dist:' + distance)
         if distance < 50:
             self.stop()
         elif self.objective == obs.FOUND:
@@ -35,7 +36,7 @@ class Follow_Bot(Skidsteer_Robot):
             #          [x, y],
             #          [x, y]]
             if (bbDims is None):
-                print("Follow_Bot.py: No Bounding box")
+                self.print("No Bounding box")
                 self.stop()
             
             else:
@@ -45,16 +46,16 @@ class Follow_Bot(Skidsteer_Robot):
                 bbCenterY = (bbDims[0][1] - (abs(bbDims[0][1] - bbDims[1][1]) / 2))
                 bbCenterX = (bbDims[0][0] + (abs(bbDims[0][0] - bbDims[1][0]) / 2))
                 bbCenter = [bbCenterX, bbCenterY]
-                print("Follow_Bot.py: Bounding Box center -> ", bbCenter)
+                self.print("Bounding Box center -> " + bbCenter)
                 
                 vidSize = [640, 480]
                 
                 center = [vidSize[0] / 2, vidSize[1] / 2]
                 
                 if verbose:
-                    print("Follow_Bot.py: bbCenter: ", bbCenter)
-                    print("Follow_Bot.py: vidSize: ", vidSize)
-                    print("Follow_Bot.py: center: ", center)
+                    self.print("bbCenter: " + bbCenter)
+                    self.print("vidSize: " + vidSize)
+                    self.print("center: " + center)
 
                 minDist = 100
 
@@ -63,23 +64,23 @@ class Follow_Bot(Skidsteer_Robot):
                     #continue straight
                     self.set_v(self.v_max * 0.25, self.v_max * 0.25)
                     if verbose:
-                        print("Follow_Bot.py: Going straight")
+                        self.print("Going straight")
                 elif bbCenter[0] < center[0]:
                     #turn left
                     self.turn_left()
                     if verbose:
-                        print("Follow_Bot.py: Turniing left")
+                        self.print("Turniing left")
                 elif bbCenter[0] > center[0]:
                     #turn right
                     self.turn_right()
 
                     if verbose:
-                        print("Follow_Bot.py: Turning right")
+                        self.print("Turning right")
 
                 else:
                     self.car.stop()
                     if verbose:
-                        print("Follow_Bot.py: Stop")
+                        self.print("Stop")
         elif self.objective == obs.LOST:
             pass
 
@@ -112,6 +113,9 @@ class Follow_Bot(Skidsteer_Robot):
 
     def close(self):
         self.buzz.close()
+
+    def print(self, message):
+        print("Follow_Bot.py: " + message)
 
 if __name__ == '__main__':
     bot = Follow_Bot(25)

@@ -84,6 +84,8 @@ class Yolo:
                 self.bounding_box = pts
                 sleep(.1)
 
+    def print(self, message):
+        print("Yolo.py: " + message)
 
 if __name__ == "__main__":
     yolo = Yolo()
