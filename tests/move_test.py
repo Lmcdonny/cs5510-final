@@ -1,4 +1,4 @@
-from robot.Follow_Bot import Follow_Bot
+from ..robot.Follow_Bot import Follow_Bot
 
 if __name__ == '__main__':
     bot = Follow_Bot()
