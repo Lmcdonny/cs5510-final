@@ -43,7 +43,7 @@ class Follow_Bot(Skidsteer_Robot):
 
                 if distance < self.min_dist and distance > 0:
                     self.stop()
-                elif center[0] + 80 > bbCenterX and bbCenterX > center[0] - 80:
+                elif center[0] + 50 > bbCenterX and bbCenterX > center[0] - 50:
                     #continue straight
                     self.set_v(self.v_max * 0.25, self.v_max * 0.25)
                     if verbose:
