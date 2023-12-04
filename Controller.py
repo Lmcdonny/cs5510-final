@@ -45,11 +45,12 @@ class Controller:
                 # Invoke robot decision
                 self.robot.operate(boundingBoxDims, dist, True)
                 runtime = time() - start
-                if runtime > 4:
+                if runtime > 6:
                     if not yolo_thread.is_alive():
                         yolo_thread.start()
                         start = time()
         except:
+            # if anything fails
             self.close()
 
     def close(self):
