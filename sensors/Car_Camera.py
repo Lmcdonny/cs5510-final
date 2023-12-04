@@ -10,6 +10,9 @@ class Car_Camera:
 
     def capture_array(self):
         return self.cam.capture_array()[:, :, 0:3]
+    
+    def close(self):
+        pass
 
 if __name__ == '__main__':
     picam2 = Picamera2()
