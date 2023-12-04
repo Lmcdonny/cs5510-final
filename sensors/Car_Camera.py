@@ -8,7 +8,7 @@ class Car_Camera:
     def start(self):
         self.cam.start()
 
-    def capture_array(self):
+    def get_im(self):
         return self.cam.capture_array()[:, :, 0:3]
     
     def close(self):
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     picam2 = Picamera2()
     picam2.start()
     
-    array = picam2.capture_array()
+    array = picam2.get_im()
 
     cv2.imshow('Image', array)
     cv2.waitKey(0)

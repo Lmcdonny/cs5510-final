@@ -1,5 +1,6 @@
 '''
-
+Main class that receives input, makes decision, and issues 
+commands to the various moving parts of the system
 '''
 from threading import Thread
 from robot.utils import objectives as obs
