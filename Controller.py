@@ -57,7 +57,6 @@ class Controller:
             exit()
         except Exception as e:
             print(e)
-            self.robot.stop()
             self.close()
             exit()
 

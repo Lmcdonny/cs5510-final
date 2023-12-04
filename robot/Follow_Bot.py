@@ -97,7 +97,7 @@ class Follow_Bot(Skidsteer_Robot):
         self.buzz.close()
 
     def print(self, message):
-        print("Follow_Bot.py: " + message)
+        print(f"Follow_Bot.py: {message}")
 
     def startup(self):
         # Init camera servo settings
