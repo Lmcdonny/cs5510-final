@@ -27,11 +27,12 @@ class Controller:
                 # Get sensor info
                 temp_found_person = self.yolo.target_found
                 boundingBoxDims = self.yolo.bounding_box
-                dist = self.ultrasonic.distance() # sense is a placeholder
+                dist = self.ultrasonic.distance()
 
                 # Determine state
                     # Toggling
                 if dist < 50:
+                    self.robot.set_ob(obs.LOST)
                     continue
                 if found_person and not temp_found_person:
                     # cant find person
