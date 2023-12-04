@@ -6,8 +6,6 @@ from sensors.Car_Camera import Car_Camera
 from Yolo import Yolo
 
 def main():
-    # [W, H]
-    cam_dims = [640, 480]
     # Robot dimensions in meters [W, L]
     robot_dims = [22 / 100, 16 / 100]
 
@@ -17,10 +15,8 @@ def main():
     # Ultrasonic
     u_sens = Ultrasonic()
 
-    # Camera
-    camera = Car_Camera()
-    
     # YOLO
+    camera = Car_Camera()
     yolo_sens = Yolo(camera)
     # usage: yolo_sens.predict(image)
 
