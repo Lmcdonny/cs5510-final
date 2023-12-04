@@ -17,6 +17,7 @@ class Controller:
             found_person = False
             self.yolo.predict()
             t = Thread(target=self.yolo.camshift, args=[])
+            yolo_thread = Thread(target=self.yolo.predict, args=[])
             t.start()
             runtime = 0
             start = time()
@@ -45,8 +46,9 @@ class Controller:
                 self.robot.operate(boundingBoxDims, dist, True)
                 runtime = time() - start
                 if runtime > 4:
-                    self.yolo.predict()
-                    start = time()
+                    if not yolo_thread.is_alive():
+                        yolo_thread.start()
+                        start = time()
         except:
             self.close()
 
