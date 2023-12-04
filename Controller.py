@@ -56,7 +56,7 @@ class Controller:
             self.close()
             exit()
         except Exception as e:
-            self.print(e)
+            print(e)
             self.robot.stop()
             self.close()
             exit()
@@ -67,4 +67,4 @@ class Controller:
         self.robot.close()
 
     def print(lself, message):
-        print("Controller.py: " + message)
+        print(f"Controller.py: {message}")

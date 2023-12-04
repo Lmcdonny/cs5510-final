@@ -90,7 +90,7 @@ class Yolo:
                 sleep(.1)
 
     def print(self, message):
-        print("Yolo.py: " + message)
+        print(f"Yolo.py: {message}")
 
     def close(self):
         self.cam.close()
