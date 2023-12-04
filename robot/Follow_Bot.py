@@ -56,7 +56,7 @@ class Follow_Bot(Skidsteer_Robot):
                     self.print(f"vidSize: {vidSize}")
                     self.print(f"center: {center}")
 
-                if distance < self.min_dist:
+                if distance < self.min_dist and distance > 0:
                     self.stop()
                 elif center[0] + 50 > bbCenter[0] and bbCenter[0] > center[0] - 50:
                     # and distance > minDist
