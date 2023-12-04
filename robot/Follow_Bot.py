@@ -64,7 +64,7 @@ class Follow_Bot(Skidsteer_Robot):
                     #turn left
                     self.turn_left()
                     if verbose:
-                        self.print("Turniing left")
+                        self.print("Turning left")
                 elif bbCenter[0] > center[0]:
                     #turn right
                     self.turn_right()

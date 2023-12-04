@@ -3,7 +3,7 @@
 '''
 from threading import Thread
 from robot.utils import objectives as obs
-from time import sleep, time
+from time import time
 
 class Controller:
     def __init__(self, yolo, ultrasonic, robot):
