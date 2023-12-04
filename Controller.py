@@ -49,8 +49,13 @@ class Controller:
                     if not yolo_thread.is_alive():
                         yolo_thread.start()
                         start = time()
-        except:
+        except KeyboardInterrupt:
             # if anything fails
+            self.print('Shutting down: Keyboard Interrupt')
+            self.close()
+        except Exception as e:
+            self.print(e)
+            self.robot.stop()
             self.close()
 
     def close(self):
@@ -58,5 +63,5 @@ class Controller:
         self.robot.stop()
         self.robot.close()
 
-    def print(self, message):
+    def print(lself, message):
         print("Controller.py: " + message)
