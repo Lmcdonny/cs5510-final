@@ -51,8 +51,8 @@ class Controller:
             self.close()
 
     def close(self):
+        self.yolo.close()
         self.robot.stop()
-        self.camera.close()
         self.robot.close()
 
     def print(self, message):

@@ -87,6 +87,9 @@ class Yolo:
     def print(self, message):
         print("Yolo.py: " + message)
 
+    def close(self):
+        self.cam.close()
+
 if __name__ == "__main__":
     yolo = Yolo()
     yolo.predict(np.ascontiguousarray(yolo.cam.capture_array()))
