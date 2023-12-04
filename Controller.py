@@ -7,12 +7,10 @@ from robot.utils import objectives as obs
 from time import sleep, time
 
 class Controller:
-    def __init__(self, camera, yolo, ultrasonic, robot):
-        self.camera = camera
+    def __init__(self, yolo, ultrasonic, robot):
         self.yolo = yolo
         self.ultrasonic = ultrasonic
         self.robot = robot
-        self.state = 0
 
     def run(self):
         try:
@@ -50,11 +48,6 @@ class Controller:
                 if runtime > 4:
                     self.yolo.predict()
                     start = time()
-
-                # If esc is pressed break
-                if waitKey(1) & 0xFF == ord(' '):
-                    self.close()
-                    break
         except:
             self.close()
 

@@ -25,7 +25,7 @@ def main():
     # usage: yolo_sens.predict(image)
 
     # Controller
-    controller = Controller(camera, yolo_sens, u_sens, robot)
+    controller = Controller(yolo_sens, u_sens, robot)
     controller.run()
 
 if __name__ == '__main__':
