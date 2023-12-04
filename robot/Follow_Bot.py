@@ -12,17 +12,13 @@ class Follow_Bot(Skidsteer_Robot):
         self.objective = obs.LOST
         self.buzz = Buzzer()
 
-        self.car = Car()
-        # Init camera servo settings
-        self.car.set_servo(1, 90)
-        sleep(0.1)
-        self.car.set_servo(2, 100)
-        sleep(0.1)
-
         self.lv = 0
         self.rv = 0
         self.v_max = 255
         self.min_dist = 50
+
+        self.car = Car()
+        self.startup()
 
     def operate(self, bbDims, distance, verbose=False):
         self.print(f'obj: {self.objective}')
@@ -115,6 +111,16 @@ class Follow_Bot(Skidsteer_Robot):
 
     def print(self, message):
         print("Follow_Bot.py: " + message)
+
+    def startup(self):
+        # Init camera servo settings
+        self.car.set_servo(1, 90)
+        sleep(0.1)
+        self.car.set_servo(2, 100)
+        sleep(0.1)
+
+        # Startup beeps
+        self.buzz.startup()
 
 if __name__ == '__main__':
     bot = Follow_Bot(25)
