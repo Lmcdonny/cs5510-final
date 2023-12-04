@@ -17,7 +17,7 @@ The reason for this approach is that YOLO can take a up to 3 seconds to run on t
 
 
 ## Setup
-This program is tested on a Yahboom Raspbot with a Raspberry Pi 3 using [OS].
+This program is tested on a Yahboom Raspbot with a Raspberry Pi 3 using Debian GNU/Linux 11 (bullseye).
 To run this program you will need to install on your Yahboom Raspbot:
 * [Ultralytics] (https://docs.ultralytics.com/)
 * [smbus]

@@ -1,3 +1,8 @@
+'''
+The class responsible for returning bounding boxes and other data associated with 
+the monocular camera
+'''
+
 from ultralytics import YOLO
 import cv2 as cv
 import numpy as np
@@ -15,7 +20,7 @@ class Yolo:
         '''
         Cam must implement the following methods:
 
-        start(), capture_array(), 
+        start(), get_im(), 
         '''
         self.cam = cam
         self.model = YOLO('yolov8n.pt')
@@ -29,7 +34,7 @@ class Yolo:
         '''
         temp_found_person = False
         b = None
-        img = self.cam.capture_array()
+        img = self.cam.get_im()
 
         # Prediction
         results = self.model.predict(img)
@@ -49,7 +54,7 @@ class Yolo:
     def camshift(self):
         self.running = True
         while self.running:
-            frame = np.ascontiguousarray(self.cam.capture_array())
+            frame = np.ascontiguousarray(self.cam.get_im())
             while self.yolo_box is None:
                 print("Yolo.py: YOLO could not find a person")
                 print("Yolo.py: Running YOLO")
@@ -74,7 +79,7 @@ class Yolo:
             while self.running:
                 if not self.target_found: # restart the function
                     break
-                frame = np.ascontiguousarray(self.cam.capture_array())
+                frame = np.ascontiguousarray(self.cam.get_im())
                 hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
                 dst = cv.calcBackProject([hsv],[0],roi_hist,[0,180],1)
                 # apply camshift to get the new location
@@ -92,7 +97,7 @@ class Yolo:
 
 if __name__ == "__main__":
     yolo = Yolo()
-    yolo.predict(np.ascontiguousarray(yolo.cam.capture_array()))
+    yolo.predict(np.ascontiguousarray(yolo.cam.get_im()))
     print("Running YOLO")
     t = Thread(target=yolo.camshift, args=[])
     t.start()
@@ -105,6 +110,6 @@ if __name__ == "__main__":
         runtime = current - start
         if runtime > 10:
             print("Running YOLO")
-            yolo.predict(np.ascontiguousarray(yolo.cam.capture_array()))
+            yolo.predict(np.ascontiguousarray(yolo.cam.get_im()))
             print("YOLO'd")
             start = time() # reset timer

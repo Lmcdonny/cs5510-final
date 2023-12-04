@@ -11,7 +11,7 @@ class Camera:
 
         print(width, ", ", height)
 
-    def read(self):
+    def get_im(self):
         _, img = self.cap.read()
         return img
 

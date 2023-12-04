@@ -1,3 +1,4 @@
+'''Class responsible for controlling the hardware buzzer'''
 import time
 import RPi.GPIO as GPIO
 

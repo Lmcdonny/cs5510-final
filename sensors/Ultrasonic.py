@@ -1,3 +1,4 @@
+'''Class responsible for determining distance.'''
 import RPi.GPIO as GPIO
 import time
 #from Car import Car
