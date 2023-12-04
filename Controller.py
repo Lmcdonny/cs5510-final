@@ -32,7 +32,7 @@ class Controller:
                 # Determine state
                     # Toggling
                 if dist < 50:
-                    self.robot.set_ob(obs.LOST)
+                    self.robot.stop()
                     continue
                 if found_person and not temp_found_person:
                     # cant find person
