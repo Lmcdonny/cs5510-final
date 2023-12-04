@@ -30,7 +30,7 @@ class Follow_Bot(Skidsteer_Robot):
             
             else:
                 bbCenterY = (bbDims[0][1] - (abs(bbDims[0][1] - bbDims[1][1]) / 2))
-                bbCenterX = (bbDims[0][0] + (abs(bbDims[0][0] - bbDims[1][0]) / 2))
+                bbCenterX = (bbDims[0][0] - (abs(bbDims[0][0] - bbDims[1][0]) / 2))
                 bbCenter = [bbCenterX, bbCenterY]
                 self.print(f"Bounding Box center -> {bbCenter}")
                 
