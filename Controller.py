@@ -53,10 +53,12 @@ class Controller:
             # if anything fails
             self.print('Shutting down: Keyboard Interrupt')
             self.close()
+            exit()
         except Exception as e:
             self.print(e)
             self.robot.stop()
             self.close()
+            exit()
 
     def close(self):
         self.yolo.close()
