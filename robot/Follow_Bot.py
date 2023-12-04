@@ -24,8 +24,10 @@ class Follow_Bot(Skidsteer_Robot):
         self.v_max = 255
 
     def operate(self, bbDims, distance, verbose=False):
-        print(self.objective)
-        if self.objective == obs.FOUND:
+        print('Follow_Bot.py: self.objective')
+        if distance < 50:
+            self.stop()
+        elif self.objective == obs.FOUND:
             #y = 480
             #x = 640
             #bbDims = [[x, y],
