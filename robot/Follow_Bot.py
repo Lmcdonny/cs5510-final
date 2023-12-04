@@ -22,11 +22,12 @@ class Follow_Bot(Skidsteer_Robot):
         self.lv = 0
         self.rv = 0
         self.v_max = 255
+        self.min_dist = 50
 
     def operate(self, bbDims, distance, verbose=False):
-        self.print('obj:' + self.objective)
-        self.print('dist:' + distance)
-        if distance < 50:
+        self.print(f'obj: {self.objective}')
+        self.print(f'dist: {distance}')
+        if distance < self.min_dist:
             self.stop()
         elif self.objective == obs.FOUND:
             #y = 480
@@ -46,18 +47,16 @@ class Follow_Bot(Skidsteer_Robot):
                 bbCenterY = (bbDims[0][1] - (abs(bbDims[0][1] - bbDims[1][1]) / 2))
                 bbCenterX = (bbDims[0][0] + (abs(bbDims[0][0] - bbDims[1][0]) / 2))
                 bbCenter = [bbCenterX, bbCenterY]
-                self.print("Bounding Box center -> " + bbCenter)
+                self.print(f"Bounding Box center -> {bbCenter}")
                 
                 vidSize = [640, 480]
                 
                 center = [vidSize[0] / 2, vidSize[1] / 2]
                 
                 if verbose:
-                    self.print("bbCenter: " + bbCenter)
-                    self.print("vidSize: " + vidSize)
-                    self.print("center: " + center)
-
-                minDist = 100
+                    self.print(f"bbCenter: {bbCenter}")
+                    self.print(f"vidSize: {vidSize}")
+                    self.print(f"center: {center}")
 
                 if center[0] + 50 > bbCenter[0] and bbCenter[0] > center[0] - 50:
                     # and distance > minDist
