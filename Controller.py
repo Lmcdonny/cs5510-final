@@ -48,7 +48,7 @@ class Controller:
                 self.robot.operate(boundingBoxDims, dist, True)
                 runtime = time() - start
                 if runtime > 4:
-                    # self.yolo.predict()
+                    self.yolo.predict()
                     start = time()
 
                 # If esc is pressed break
