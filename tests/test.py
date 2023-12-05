@@ -1,20 +1,20 @@
 import numpy as np
 import cv2 as cv
 import argparse
-from picamera2 import Picamera2
+# from picamera2 import Picamera2
 
-# parser = argparse.ArgumentParser(description='This sample demonstrates the camshift algorithm. \
-#                                              The example file can be downloaded from: \
-#                                              https://www.bogotobogo.com/python/OpenCV_Python/images/mean_shift_tracking/slow_traffic_small.mp4')
-# parser.add_argument('image', type=str, help='path to image file')
-# args = parser.parse_args()
+parser = argparse.ArgumentParser(description='This sample demonstrates the camshift algorithm. \
+                                              The example file can be downloaded from: \
+                                              https://www.bogotobogo.com/python/OpenCV_Python/images/mean_shift_tracking/slow_traffic_small.mp4')
+parser.add_argument('image', type=str, help='path to image file')
+args = parser.parse_args()
 # cap = cv.VideoCapture(args.image) 
-# cap = cv.VideoCapture(0) # uses your camera
-cam = Picamera2()
-cam.start()
+cap = cv.VideoCapture(0) # uses your camera
+# cam = Picamera2()
+# cam.start()
 # take first frame of the video
 # ret,frame = cap.read()
-frame = np.ascontiguousarray(cam.capture_array()[:, :, 0:3])
+frame = np.ascontiguousarray(cap.read())
 
 print(frame)
 # setup initial location of window
@@ -29,7 +29,7 @@ cv.normalize(roi_hist,roi_hist,0,255,cv.NORM_MINMAX)
 # Setup the termination criteria, either 10 iteration or move by at least 1 pt
 term_crit = ( cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 1 )
 while True:
-    frame = np.ascontiguousarray(cam.capture_array()[:, :, 0:3])
+    frame = np.ascontiguousarray(cap.read())
     hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
     dst = cv.calcBackProject([hsv],[0],roi_hist,[0,180],1)
     # apply camshift to get the new location

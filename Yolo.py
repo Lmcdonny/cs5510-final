@@ -13,8 +13,8 @@ from threading import Thread
 class Yolo:
     running = False
     target_found = False
-    yolo_box = None
-    bounding_box = None
+    yolo_box = None # for use by yolo
+    bounding_box = None # for use with camshift
 
     def __init__(self, cam):
         '''
@@ -53,11 +53,13 @@ class Yolo:
 
     def camshift(self):
         self.running = True
+
         while self.running:
             frame = np.ascontiguousarray(self.cam.get_im())
 
             # Wait for the controller to run yolo
-            while self.yolo_box is None:
+            while self.target_found is False:
+                print("Yolo.py: Waiting for a target")
                 sleep(1)
 
             # set up bounding box
