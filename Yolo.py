@@ -37,7 +37,7 @@ class Yolo:
         b = None
         img = self.cam.get_im()
         self.img_size[0] = len(img)
-        self.print(self.img_size[0], " x ", len(img[0]))
+        self.print("%d x %d " % self.img_size[0], len(img[0]))
 
         # Prediction
         results = self.model.predict(img)
