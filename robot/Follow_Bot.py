@@ -16,7 +16,7 @@ class Follow_Bot(Skidsteer_Robot):
         self.rv = 0
         self.turn_strength = 0.10
         self.v_max = 255
-        self.min_dist = 50
+        self.min_dist = 100
 
         self.car = Car()
         self.startup()
