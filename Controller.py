@@ -53,8 +53,8 @@ class Controller:
                     # yolo_thread.start()
                     self.print("Re-YOLOing")
                     self.robot.stop()
-                    sleep(2.5)
                     self.yolo.predict()
+                    sleep(2.5)
                     start = time()
 
                     
