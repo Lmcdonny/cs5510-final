@@ -47,9 +47,13 @@ class Controller:
                 self.robot.operate(boundingBoxDims, dist, True)
                 runtime = time() - start
                 if runtime > 6:
-                    if not yolo_thread.is_alive():
+                    if yolo_thread.is_alive():
+                        yolo_thread.join()
+                    else:
+                        yolo_thread = Thread(target=self.yolo.predict, args=[])
                         yolo_thread.start()
-                        start = time()
+                    start = time()
+                    
         except KeyboardInterrupt:
             # if anything fails
             self.print('Shutting down: Keyboard Interrupt')
