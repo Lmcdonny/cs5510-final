@@ -57,6 +57,7 @@ class Yolo:
 
     def camshift(self):
         self.running = True
+        count = 0
 
         while self.running:
             frame = np.ascontiguousarray(self.cam.get_im())
@@ -93,7 +94,8 @@ class Yolo:
                 pts = np.intp(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
                 self.bounding_box = pts
                 img2 = cv.polylines(frame,[pts],True, 255,2)
-                cv.imwrite("img.png", img2)
+                cv.imwrite("imgs/img{}.png".format(count), img2)
+                count += 1
 
     def print(self, message):
         print(f"Yolo.py: {message}")
