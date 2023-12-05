@@ -4,7 +4,7 @@ commands to the various moving parts of the system
 '''
 from threading import Thread
 from robot.utils import objectives as obs
-from time import time
+from time import time, sleep
 
 class Controller:
     def __init__(self, yolo, ultrasonic, robot):
@@ -53,6 +53,7 @@ class Controller:
                     # yolo_thread.start()
                     self.print("Re-YOLOing")
                     self.robot.stop()
+                    sleep(2.5)
                     self.yolo.predict()
                     start = time()
 
