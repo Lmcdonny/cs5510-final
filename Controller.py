@@ -73,5 +73,5 @@ class Controller:
         self.robot.stop()
         self.robot.close()
 
-    def print(lself, message):
+    def print(self, message):
         print(f"Controller.py: {message}")
