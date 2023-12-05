@@ -49,10 +49,10 @@ class Controller:
                 if runtime > 6:
                     if yolo_thread.is_alive():
                         yolo_thread.join()
-                    else:
-                        yolo_thread = Thread(target=self.yolo.predict, args=[])
-                        yolo_thread.start()
+                    yolo_thread = Thread(target=self.yolo.predict, args=[])
+                    yolo_thread.start()
                     start = time()
+
                     
         except KeyboardInterrupt:
             # if anything fails
