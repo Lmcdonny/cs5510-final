@@ -88,7 +88,6 @@ class Yolo:
                 pts = cv.boxPoints(ret)
                 pts = np.intp(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
                 self.bounding_box = pts
-                sleep(.1)
 
     def print(self, message):
         print(f"Yolo.py: {message}")
