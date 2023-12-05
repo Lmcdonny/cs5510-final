@@ -15,6 +15,7 @@ class Yolo:
     target_found = False
     yolo_box = None # for use by yolo
     bounding_box = None # for use with camshift
+    img_size = (640, 480)
 
     def __init__(self, cam):
         '''
@@ -35,6 +36,8 @@ class Yolo:
         temp_found_person = False
         b = None
         img = self.cam.get_im()
+        self.img_size[0] = len(img)
+        self.print(self.img_size[0], " x ", len(img[0]))
 
         # Prediction
         results = self.model.predict(img)
