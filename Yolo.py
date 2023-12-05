@@ -55,12 +55,11 @@ class Yolo:
         self.running = True
         while self.running:
             frame = np.ascontiguousarray(self.cam.get_im())
+
+            # Wait for the controller to run yolo
             while self.yolo_box is None:
-                print("Yolo.py: YOLO could not find a person")
-                print("Yolo.py: Running YOLO")
-                self.predict()
-                print("Yolo.py: YOLO'd")
                 sleep(1)
+
             # set up bounding box
             b = self.yolo_box
             x1, y1 = int(b[0]), int(b[1])
