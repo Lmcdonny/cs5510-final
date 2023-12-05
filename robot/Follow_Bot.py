@@ -14,6 +14,7 @@ class Follow_Bot(Skidsteer_Robot):
 
         self.lv = 0
         self.rv = 0
+        self.turn_strength = 0.10
         self.v_max = 255
         self.min_dist = 50
 
@@ -67,11 +68,11 @@ class Follow_Bot(Skidsteer_Robot):
             self.stop()
 
     def turn_left(self):
-        self.set_v(-self.v_max * 0.25, self.v_max * 0.25)
+        self.set_v(-self.v_max * self.turn_strength, self.v_max * self.turn_strength)
         
 
     def turn_right(self):
-        self.set_v(self.v_max * 0.25, -self.v_max * 0.25)
+        self.set_v(self.v_max * self.turn_strength, -self.v_max * self.turn_strength)
 
 
     def set_ob(self, objective):
