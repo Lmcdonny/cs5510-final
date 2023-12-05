@@ -15,7 +15,7 @@ class Yolo:
     target_found = False
     yolo_box = None # for use by yolo
     bounding_box = None # for use with camshift
-    img_size = (640, 480)
+    img_size = [640, 480]
 
     def __init__(self, cam):
         '''
