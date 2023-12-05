@@ -91,6 +91,9 @@ class Yolo:
                 ret, track_window = cv.CamShift(dst, track_window, term_crit)
                 pts = cv.boxPoints(ret)
                 pts = np.intp(pts) # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
+                img2 = cv.polylines(frame,[pts],True, 255,2)
+                file = open("img.png", 'w')
+                file.write(img2)
                 self.bounding_box = pts
 
     def print(self, message):
