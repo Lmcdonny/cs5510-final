@@ -36,8 +36,9 @@ class Yolo:
         temp_found_person = False
         b = None
         img = self.cam.get_im()
-        self.img_size[0] = len(img)
-        self.print("{} x {}".format(self.img_size[0], len(img[0])))
+        self.img_size[1] = len(img)
+        self.img_size[0] = len(img[0])
+        self.print("{} x {}".format(self.img_size[0], self.img_size[1]))
 
         # Prediction
         results = self.model.predict(img)
